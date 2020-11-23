@@ -13,10 +13,11 @@ require __DIR__.'/../vendor/autoload.php';
 $conn = new Database;
 
 $app = AppFactory::create();
-$app->setBasePath('/cuatrimestre3/Programacion3/programacion/modeloparcial2/public');
+//$app->setBasePath('/cuatrimestre3/Programacion3/programacion/modeloparcial2/public');
+$app->setBasePath('/public');
 
 $app->group('/usuario', function(RouteCollectorProxy $group){
-    //$group->get('[/]', UsuarioController::class . ":getAll");
+    $group->get('[/]', UsuarioController::class . ":getAll");
 
     $group->post('[/]', UsuarioController::class . ":addOne");
 
