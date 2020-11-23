@@ -9,16 +9,16 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Models\Usuario;
 
 class UsuarioController{
-    /*public function getAll(Request $request, Response $response, $args){
-        $rta = Usuario::get();
-        $response->getBody()->write(json_encode($rta));
+    public function getAll(Request $request, Response $response, $args){
+        //$rta = Usuario::get();
+        $response->getBody()->write("hello world");//json_encode($rta));
         return $response;
     }
     public function getOne(Request $request, Response $response, $args){
         $rta = Usuario::find($args['id']);
         $response->getBody()->write(json_encode($rta));
         return $response;
-    }*/
+    }
 
     public function addOne(Request $request, Response $response, $args){
         $user = new Usuario;
