@@ -73,6 +73,7 @@ $app->get('/pedido[/]', PedidoController::class . ":getAll");
 $app->get('/cliente/{mesa}/{pedido}[/]', PedidoController::class . ":tiempoEstimado");
 $app->put('/pedidolisto/{pedido}[/]', PedidoController::class . ":ready");
 $app->put('/pedidoservido/{pedido}[/]', PedidoController::class . ":servido");
+$app->put('/pedidopagando/{pedido}[/]', PedidoController::class . ":pagando");
 
 
 $app->group('/login', function(RouteCollectorProxy $group){

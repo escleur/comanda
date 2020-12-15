@@ -220,7 +220,50 @@ class PedidoController{
         
         return $response;
     }
+    public function pagando(Request $request, Response $response, $args){
+        try{
+            $token = $request->getHeaders()['token'][0] ?? '';
+            $data = (object) ["tipo"=>""];
+            try {
+                Auth::Check($token);
+                $data = Auth::GetData($token);
+            } catch (\Throwable $th) {
+                echo $th->getMessage();
+            }
+            $pedido = Pedido::where('codigo', '=', $args['pedido'])->get();
+            if(empty($pedido)){
+                throw new \Exception("El pedido no existe");
+            }
             
+            $rta = "Solo mozo o admin cobra el pedido";
+            switch ($data->tipo){
+
+                case UserRole::ADMIN:
+                    
+                case UserRole::MOZO:
+                    if($pedido[0]->estado_bar == PedidoState::FINALIZADO
+                    && $pedido[0]->estado_cocina == PedidoState::FINALIZADO
+                    && $pedido[0]->estado_cerveceria == PedidoState::FINALIZADO
+                    && $pedido[0]->estado_candybar == PedidoState::FINALIZADO
+                    ){
+                        $mesa = Mesa::where("id", '=', $pedido[0]->idMesa)->first();
+                        $mesa->estado = MesaState::PAGANDO;
+                        $mesa->save();
+                        $rta = "Pedido pagado";
+                    }
+                break;
+                    
+            }
+            
+            $response->getBody()->write(GenericResponse::obtain(true, $rta, $pedido));
+            
+        } catch (\Exception $e) {
+            $response->getBody()->write(GenericResponse::obtain(false, $e->getMessage(), null));
+            $response->withStatus(500);
+        }
+        
+        return $response;
+    }       
     public function addOne(Request $request, Response $response, $args){
         try{
             $pedido = new Pedido;
