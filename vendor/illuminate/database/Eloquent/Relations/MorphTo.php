@@ -136,7 +136,7 @@ class MorphTo extends BelongsTo
         $whereIn = $this->whereInMethod($instance, $ownerKey);
 
         return $query->{$whereIn}(
-            $instance->getTable().'.'.$ownerKey, $this->gatherKeysByType($type, $instance->getKeyType())
+            $instance->getTable().'.'.$ownerKey, $this->gatherKeysByType($type)
         )->get();
     }
 
@@ -144,16 +144,11 @@ class MorphTo extends BelongsTo
      * Gather all of the foreign keys for a given type.
      *
      * @param  string  $type
-     * @param  string  $keyType
      * @return array
      */
-    protected function gatherKeysByType($type, $keyType)
+    protected function gatherKeysByType($type)
     {
-        return $keyType !== 'string'
-                    ? array_keys($this->dictionary[$type])
-                    : array_map(function ($modelId) {
-                        return (string) $modelId;
-                    }, array_keys($this->dictionary[$type]));
+        return array_keys($this->dictionary[$type]);
     }
 
     /**

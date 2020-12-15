@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Middlewares;
+namespace Middlewares;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Slim\Psr7\Response;
 // use Psr\Http\Message\ResponseInterface as Response;
-use App\Middlewares\Auth;
+use Components\Auth;
 
 class AuthMiddleware
 {
@@ -35,12 +35,15 @@ class AuthMiddleware
             echo $th->getMessage();
         }
       
-       
+        
         $valido = false; // valido token
         //Revisa el array de roles buscando coincidencia
         foreach ($this->role as $key => $value) {
-            if(strcmp($value, $data->tipo)==0)
+            //if(strcmp($value, $data->tipo)==0)
+            if($value == $data->tipo){
                 $valido = true;
+
+            }
         }
 
         if (!$valido) {
