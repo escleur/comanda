@@ -25,7 +25,7 @@ class AuthMiddleware
      */
     public function __invoke(Request $request, RequestHandler $handler): Response
     {
-        $token = $request->getHeaders()['token'][0] ?? '';
+        $token = $request->getHeaders()['Token'][0] ?? '';
         // $_SERVER['HTTP_TOKEN'] ?? '';
         $data = (object) ["tipo"=>""];
         try {

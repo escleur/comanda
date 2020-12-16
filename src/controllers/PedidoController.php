@@ -21,7 +21,7 @@ use Models\PedidoComida;
 class PedidoController{
     public function getAll(Request $request, Response $response, $args){
         try{
-            $token = $request->getHeaders()['token'][0] ?? '';
+            $token = $request->getHeaders()['Token'][0] ?? '';
             $data = (object) ["tipo"=>""];
             try {
                 Auth::Check($token);
@@ -73,7 +73,7 @@ class PedidoController{
 
     public function ready(Request $request, Response $response, $args){
         try{
-            $token = $request->getHeaders()['token'][0] ?? '';
+            $token = $request->getHeaders()['Token'][0] ?? '';
             $data = (object) ["tipo"=>""];
             try {
                 Auth::Check($token);
@@ -173,7 +173,7 @@ class PedidoController{
 
     public function servido(Request $request, Response $response, $args){
         try{
-            $token = $request->getHeaders()['token'][0] ?? '';
+            $token = $request->getHeaders()['Token'][0] ?? '';
             $data = (object) ["tipo"=>""];
             try {
                 Auth::Check($token);
@@ -222,7 +222,7 @@ class PedidoController{
     }
     public function pagando(Request $request, Response $response, $args){
         try{
-            $token = $request->getHeaders()['token'][0] ?? '';
+            $token = $request->getHeaders()['Token'][0] ?? '';
             $data = (object) ["tipo"=>""];
             try {
                 Auth::Check($token);
